@@ -1,0 +1,14 @@
+<header>
+  <h1>{{ title }}</h1>
+</header>
+<main>
+  <app-ticket-panel [ticketList]="ticketList" />
+  <div>
+    <button (click)="generateRandomColor()">Randomize color</button>
+    <p class="color-text" [ngStyle]="{ backgroundColor: randomColor() }">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repudiandae,
+      iusto! Laudantium eaque sunt quidem? Delectus, amet! Corrupti ipsam
+      corporis placeat.
+    </p>
+  </div>
+</main>

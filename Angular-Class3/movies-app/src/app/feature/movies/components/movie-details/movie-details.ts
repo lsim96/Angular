@@ -12,6 +12,7 @@ export class MovieDetails {
   private moviesService = inject(MoviesService);
 
   //This is a referen e to the property in the service, not a new signal/object
+  //We only use references from service values if we need them in the template
   selectedMovie = this.moviesService.selectedMovie;
 
   onClickLikeDislike(type: 'LIKE' | 'DISLIKE') {

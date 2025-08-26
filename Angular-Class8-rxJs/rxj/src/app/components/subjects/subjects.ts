@@ -1,7 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, model, signal } from '@angular/core';
+import { Component, DestroyRef, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RxjsService } from '../../services/rxjs-service';
+import { Subject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-subjects',
@@ -10,6 +12,7 @@ import { RxjsService } from '../../services/rxjs-service';
   styleUrl: './subjects.scss',
 })
 export class Subjects {
+  private dr = inject(DestroyRef);
   private rxjsService = inject(RxjsService);
 
   fruitsSubject$ = this.rxjsService.fruitsSubject$;
@@ -19,11 +22,21 @@ export class Subjects {
   nameValue = model<string>();
   fruitValue = model<string>();
 
+  unsubscribe$ = new Subject<null>();
+
   ngOnInit() {
-    this.rxjsService.nameSubject$.subscribe((value) => {
-      this.nameArr.set(value);
-    });
+    this.rxjsService.nameSubject$
+      .pipe(takeUntilDestroyed(this.dr))
+      .subscribe((value) => {
+        console.log('TAKE UNTIL DESTOYED SUBSCRIPTION');
+        this.nameArr.set(value);
+      });
     this.rxjsService.getNames();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next(null);
+    this.unsubscribe$.complete();
   }
 
   onAddName() {

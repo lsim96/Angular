@@ -329,6 +329,17 @@
       "text": "Blue people, big trees, bigger budget.",
       "genres": "Sci-Fi, Adventure",
       "likeCount": 477
+    },
+    {
+      "id": "d9bc",
+      "title": "After Dark",
+      "director": "Quentin Tarantino",
+      "year": 1996,
+      "author": "Quentin Tarantino",
+      "rating": 8,
+      "text": "Bunch of vampires",
+      "genres": "action, horror",
+      "likeCount": 6
     }
   ]
 }
